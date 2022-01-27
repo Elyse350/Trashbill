@@ -1,34 +1,35 @@
 import mongoose from 'mongoose';
-const paymentSchema = new mongoose.Schema(  
+const paymentSchema = new mongoose.Schema(
     {
-        tenant:{
-            type:mongoose.Schema.ObjectId,
-            ref:"tenant"
+        tenant: {
+            type: mongoose.Schema.ObjectId,
+            ref: "User"
         },
-    houseid:{
-        type:mongoose.Schema.ObjectId,
-        ref:"house" 
+        houseId: {
+            type: mongoose.Schema.ObjectId,
+            ref: "house"
         },
-        Month:{
-            type:String,
-            required:true
+
+        month: {
+            type: String,
+            required: true
         },
-        Amount:{
-            type:String,
-            required:true
+        amount: {
+            type: String,
+            required: true
         },
-        ispaid:{
-            type:String,
-            enum:["pending","paid","not paid"],
-        default:"pending"
+        isPaid: {
+            type: String,
+            enum: ["pending", "paid", "not paid"],
+            default: "pending"
 
         }
-    
+
     },
-       {
-           timestamps: true,  
-       }
+    {
+        timestamps: true,
+    }
 );
-const payment = mongoose.model('payment',paymentSchema);
+const payment = mongoose.model('tenantPayment', paymentSchema);
 
 export default payment;
