@@ -14,10 +14,8 @@ houseRouter.post(
   Validator.validateInput,
   houseController.createInfos
 );
-houseRouter.get("/getallhouse", houseController.getAllhouseInfos);
+houseRouter.get("/house/:id", houseController.gethouseInfos);
 
-
-houseRouter.get("/:id", houseController.getOnehouseInfos);
 houseRouter.delete("/:id", houseController.deleteOnehouseInfos);
 
 

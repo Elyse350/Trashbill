@@ -4,6 +4,7 @@ class houseController{
     
     static async createInfos(req,res){
         req.body.landLordId = req.user._id;
+        
         const house= await houseInfos.create(req.body); 
         if(!house){
             return res.status(404).json({error:"houseinformation not registered"})
@@ -13,18 +14,10 @@ class houseController{
         .json({message:"houseinformation Created successfully" , data: house});
     }
     
-    static async getAllhouseInfos(req,res){
-        const houses= await houseInfos.find(); 
-        if(!houses){
-            return res.status(404).json({error:"no houseinformation registered"})
-        }
-        return res
-        .status(200)
-        .json({message:"Successfully retrieved houseinformation" , data: houses});
-    }
-
-    static async getOnehouseInfos(req,res){
-        const house=await houseInfos.findById(req.params.id);
+    
+    static async gethouseInfos(req,res){
+        req.body.landLordId = req.params.id;
+        const house=await houseInfos.find({landLordId:req.params.id});
         if(!house){
             return res.status(404).json({error:"houseInfos not found"})
         }
