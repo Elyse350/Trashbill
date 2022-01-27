@@ -18,6 +18,14 @@ userRouter.get("/getusers", UserController.getAllUsers);
 userRouter.get("/:id", UserController.getOneUsers);
 userRouter.delete("/:id", UserController.deletOneUser);
 userRouter.post("/login", UserController.userLogin);
+//payment
+
+userRouter.post(
+  "/payment",
+  VerifyToken,
+  VerifyAccess("Tenant"),
+  UserController.payment
+);
 
 
 export default userRouter;
