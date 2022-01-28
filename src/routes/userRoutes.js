@@ -1,6 +1,7 @@
 import UserController from "../controller/userController";
 import express from "express";
 
+
 import Validator from "../middleware/validator";
 import DataChecker from "../middleware/datachecker";
 import VerifyToken from "../middleware/verifyToken";
