@@ -26,6 +26,17 @@ userRouter.post(
   VerifyAccess("Tenant"),
   UserController.payment
 );
-
+userRouter.get(
+  "/payments/all",
+  VerifyToken,
+  VerifyAccess("Admin"),
+  UserController.getAllPayments
+);
+userRouter.patch(
+  "/payment/status",
+  VerifyToken,
+  VerifyAccess("Admin"),
+  UserController.changePaymentStatus
+);
 
 export default userRouter;

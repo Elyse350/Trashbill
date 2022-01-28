@@ -75,6 +75,22 @@ class UserController {
             .status(200)
             .json({ message: " successfully payment", data: payment });
     }
+    static async getAllPayments(req,res){
+        const payments =await dataInfos.find();
+        if(!payments){
+            return res.status(404).json({error: "payments not found"});
+        }
+        return res.status(200).json({message: "found successfuly", data: payments}) 
+    }
+    static async changePaymentStatus(req,res){
+        const { id,isPaid} =req.body;
+        const payment =await  dataInfos.findByIdAndUpdate(id,{isPaid:isPaid},{new:true});
+
+        if(!payment){
+            return res.status(404).json({error: "failed to update status"}); 
+        } 
+        res.status(200).json({message: "update successfully", data: payment}) 
+    }
 
   
 
