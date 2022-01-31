@@ -39,5 +39,11 @@ userRouter.patch(
   VerifyAccess("Admin"),
   UserController.changePaymentStatus
 );
+userRouter.get(
+  "/payments/pending",
+  VerifyToken,
+  VerifyAccess("Admin"),
+  UserController.getPendingPayments
+);
 
 export default userRouter;
