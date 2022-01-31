@@ -1,6 +1,6 @@
 import UserInfos from "../models/user";
 import dataInfos from "../models/payment";
-
+import sendSMS from "../helper/sendSMS"
 import bcrypt from "bcrypt"
 import TokenAuth from "../helper/authToken";
 
@@ -75,8 +75,36 @@ class UserController {
             .status(200)
             .json({ message: " successfully payment", data: payment });
     }
+    static async onePaymentById(req, res){
 
-  
+        const payment = await dataInfos.findById(req.params.id);
+        if(!payment){
+            return res.status(400).json({error: "no payments recorded"})
+        }
+        return res.status(200).json({message: "retrived payments record",data:payment});
+
+    }
+    static async getPendingPayments(req,res){
+        const {isPaid}=req.body;
+        const payment=await  dataInfos.findById({isPaid:"pending"});
+         
+        if(!payment){
+            return res.status(400).json({error:"payment not found"});
+
+
+        }
+        
+        sendSMS(
+           payment.user.tenant.lastName,
+           payment.status,
+           payment._id,
+           payment.user.phone
+            );
+           
+   
+            return res.status(200).json({message:"success",data:payments})
+         }
+           
 
 }
 export default UserController;

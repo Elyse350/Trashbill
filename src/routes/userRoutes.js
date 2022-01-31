@@ -26,6 +26,8 @@ userRouter.post(
   VerifyAccess("Tenant"),
   UserController.payment
 );
+userRouter.get("/payment/:id",VerifyToken,VerifyAccess("Tenant"),UserController.onePaymentById);
+userRouter.get("payment/pending",VerifyToken,VerifyAccess("admin"),UserController.getPendingPayments);
 
 
 export default userRouter;
