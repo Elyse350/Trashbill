@@ -1,5 +1,6 @@
 import UserInfos from "../models/user";
 import dataInfos from "../models/payment";
+import sendSMS from "../helper/sendSMS"
 import sendSMS from "../helper/sendSMS";
 import sms from "../helper/sms";
 import bcrypt from "bcrypt"
@@ -76,6 +77,37 @@ class UserController {
             .status(200)
             .json({ message: " successfully payment", data: payment });
     }
+
+    static async onePaymentById(req, res){
+
+        const payment = await dataInfos.findById(req.params.id);
+        if(!payment){
+            return res.status(400).json({error: "no payments recorded"})
+        }
+        return res.status(200).json({message: "retrived payments record",data:payment});
+
+    }
+    static async getPendingPayments(req,res){
+        const {isPaid}=req.body;
+        const payment=await  dataInfos.findById({isPaid:"pending"});
+         
+        if(!payment){
+            return res.status(400).json({error:"payment not found"});
+
+
+        }
+        
+        sendSMS(
+           payment.user.tenant.lastName,
+           payment.status,
+           payment._id,
+           payment.user.phone
+            );
+           
+   
+            return res.status(200).json({message:"success",data:payments})
+         }
+           
     static async getAllPayments(req,res){
         const payments =await dataInfos.find();
         if(!payments){
@@ -116,7 +148,6 @@ class UserController {
         res.status(200).json({message: "sucess", data: payment}) 
     }
     
-  
 
 }
 export default UserController;
