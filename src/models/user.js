@@ -14,6 +14,8 @@ const userSchema = new mongoose.Schema(  // Scheam is a format or a structure of
         unique:true,
     },
     
+       
+      
     role:{
         type:String,
         enum:["Admin","Tenant","Landlord"],

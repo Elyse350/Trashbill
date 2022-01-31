@@ -1,7 +1,6 @@
 import UserController from "../controller/userController";
 import express from "express";
 
-
 import Validator from "../middleware/validator";
 import DataChecker from "../middleware/datachecker";
 import VerifyToken from "../middleware/verifyToken";
@@ -27,11 +26,6 @@ userRouter.post(
   VerifyAccess("Tenant"),
   UserController.payment
 );
-
-userRouter.get("/payment/:id",VerifyToken,VerifyAccess("Tenant"),UserController.onePaymentById);
-userRouter.get("payment/pending",VerifyToken,VerifyAccess("admin"),UserController.getPendingPayments);
-
-
 userRouter.get(
   "/payments/all",
   VerifyToken,
@@ -50,6 +44,5 @@ userRouter.get(
   VerifyAccess("Admin"),
   UserController.getPendingPayments
 );
-
 
 export default userRouter;
