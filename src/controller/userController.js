@@ -107,7 +107,7 @@ class UserController {
     }
     static async getPendingPaymentById(req,res){
     
-        const payment =await dataInfos.findById({isPaid:"pending"});
+        const payment =await dataInfos.findById(req.params.id);
         
         if(!payment){
             return res.status(404).json({error: "payments not found"});

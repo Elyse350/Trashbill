@@ -44,5 +44,11 @@ userRouter.get(
   VerifyAccess("Admin"),
   UserController.getPendingPayments
 );
+userRouter.get(
+  "/payments/:id",
+  VerifyToken,
+  VerifyAccess("Admin"),
+  UserController.getPendingPaymentById
 
+);
 export default userRouter;
